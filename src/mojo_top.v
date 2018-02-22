@@ -1,3 +1,7 @@
+//
+// FizzBuzz: loop from 1 to 100. Print Fizz for multiples of 3,
+// Buzz for multiples of 5, FizzBuzz for multiples of both.
+
 module mojo_top(
     // 50MHz clock input
     input clk,
@@ -17,7 +21,8 @@ module mojo_top(
     // Serial connections
     input avr_tx, // AVR Tx => FPGA Rx
     output avr_rx, // AVR Rx => FPGA Tx
-    input avr_rx_busy // AVR Rx buffer full
+    input avr_rx_busy, // AVR Rx buffer full
+	 output pin50
     );
 
 wire rst = ~rst_n; // make reset active high
@@ -27,6 +32,12 @@ assign spi_miso = 1'bz;
 assign avr_rx = 1'bz;
 assign spi_channel = 4'bzzzz;
 
-assign led = 8'b0;
+// Main loop for FizzBuzz
+fizzbuzz fizzbuzz(
+  .clk(clk),
+  .rst(rst),
+  .led(led),
+  .out(pin50)
+  );
 
 endmodule
