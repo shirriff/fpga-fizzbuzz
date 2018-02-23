@@ -9,7 +9,7 @@ module serial(
   output reg out,
   output busy
     );
-	 
+    
 assign busy = (state == IDLE) ? 1'b0 : 1'b1;
 
 // Divide 50 MHz by 5208 to get approximately 9600 baud
@@ -28,25 +28,25 @@ reg [6:0] char1;
 always @(posedge clk) begin
   if (rst) begin
     state <= IDLE;
-	 counter <= 0;
+    counter <= 0;
   end else if (state == IDLE) begin
     if (send == 1) begin
-	   state <= START;
-	   counter <= 0;
-	   char1 <= char;
-	 end
+      state <= START;
+      counter <= 0;
+      char1 <= char;
+    end
   end else if (state == DONE) begin
     // DONE is just one clock to trigger the done signal
     state <= IDLE;
   end else begin
     if (counter < DIVISOR) begin
-	   // Keep counting to the end of the bit time
-	 	counter <= counter + 1'b1;
-	 end else begin
-	   // End of bit time. Reset counter and move to next state.
-	   counter <= 0;
-		state <= state + 1'b1;
-	 end
+      // Keep counting to the end of the bit time
+       counter <= counter + 1'b1;
+    end else begin
+      // End of bit time. Reset counter and move to next state.
+      counter <= 0;
+      state <= state + 1'b1;
+    end
   end
 end
 
@@ -55,16 +55,16 @@ always @(*) begin
   case (state)
     IDLE: out = MARK;
     START: out = SPACE;
-	 BIT0: out = char1[0];
-	 BIT1: out = char1[1];
-	 BIT2: out = char1[2];
-	 BIT3: out = char1[3];
-	 BIT4: out = char1[4];
-	 BIT5: out = char1[5];
-	 BIT6: out = char1[6];
-	 STOP: out = SPACE;
-	 GAP: out = MARK;
-	 default: out = MARK;
+    BIT0: out = char1[0];
+    BIT1: out = char1[1];
+    BIT2: out = char1[2];
+    BIT3: out = char1[3];
+    BIT4: out = char1[4];
+    BIT5: out = char1[5];
+    BIT6: out = char1[6];
+    STOP: out = SPACE;
+    GAP: out = MARK;
+    default: out = MARK;
   endcase
 end
 
