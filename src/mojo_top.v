@@ -1,4 +1,8 @@
 //
+// Top-level routine for FizzBuzz problem.
+// This simply instantiates the fizzbuzz module, which does all the work.
+// Ken Shirriff  http://righto.com
+
 // FizzBuzz: loop from 1 to 100. Print Fizz for multiples of 3,
 // Buzz for multiples of 5, FizzBuzz for multiples of both.
 

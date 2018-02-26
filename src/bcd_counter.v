@@ -1,22 +1,25 @@
 `timescale 1ns / 1ps
 // 3-digit BCD counter
-// Start at 1
+// A signal on "increment" will increment the counter.
+// Ken Shirriff  http://righto.com
 
 module bcd_counter(
   input clk,
   input rst,
-  input increment,   // Set to 1 for a clock to increment counter
-  output reg [3:0] digit2,
+  input increment,
+  output reg [3:0] digit2,  // High-order digit
   output reg [3:0] digit1,
   output reg [3:0] digit0
     );
           
   always @(posedge clk) begin
     if (rst) begin
+      // Reset to 000
       digit2 <= 4'b0;
       digit1 <= 4'b0;
       digit0 <= 4'b0;
     end else if (increment) begin
+      // Increment value, rolling over digits at 9
       if (digit0 != 4'd9) begin
         // Regular increment digit 0
         digit0 <= digit0 + 1'b1;

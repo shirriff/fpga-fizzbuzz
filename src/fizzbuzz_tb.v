@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
 // Testbench for fizzbuzz
+// Ken Shirriff  http://righto.com
 module fizzbuzz_tb;
 
    // Inputs

@@ -1,5 +1,8 @@
 `timescale 1ns / 1ps
 
+// Testbench for bcd_counter.
+// Ken Shirriff  http://righto.com
+
 module bcd_counter_tb;
 
    // Inputs
@@ -30,6 +33,7 @@ module bcd_counter_tb;
    
    initial begin
      # 20; // Wait for reset
+     // Increment 120 times
      repeat(120) begin
        #20 increment = 1'b1;
        #20 increment = 1'b0;
